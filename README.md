@@ -34,12 +34,16 @@ Now here you need to run chroot.sh script that its going to create some configur
 files, like: *fstab*, *rc.conf*, change the password of root, and add 1 user, and
 some others.
 
+``` sh
+sh /tmp/chroot.sh
+```
+
 When it finish you need to run the *postinstall.sh* scipt, that is going to install
 the *X server* and some other "necesary" packages.
 
 This is going to install my personal dotfiles, and a specific packages that I use:
 ``` sh
-sh postinstall.sh
+sh /tmp/postinstall.sh
 ```
 
 But you can specify your dotfiles repos and other repos that you require whit some parameters:
