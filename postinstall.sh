@@ -8,8 +8,8 @@ while getopts ":a:r:b:p:h" o; do case "${o}" in
 	*) printf "Invalid option: -%s\\n" "$OPTARG" && printf "Optional arguments for custom use:\\n  -r: Dotfiles repository (local file or url)\\n  -p: Dependencies and programs csv (local file or url)\\n  -h: Show this message\\n" && exit ;;
 esac done
 
-[ -z "$dotfilesrepo" ] && dotfilesrepo="https://codeberg.org/javier_pacheco/voidots"
-[ -z "$progsfile" ] && progsfile="https://codeberg.org/javier_pacheco/voidstrap/raw/branch/main/progs.csv"
+[ -z "$dotfilesrepo" ] && dotfilesrepo="https://git.disroot.org/jpacheco/voidots"
+[ -z "$progsfile" ] && progsfile="https://git.disroot.org/jpacheco/voidstrap/raw/branch/master/progs.csv"
 [ -z "$repobranch" ] && repobranch="main"
 
 ### FUNCTIONS ###
