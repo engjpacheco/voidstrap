@@ -30,9 +30,14 @@ When the *config.sh* script finish, you need to copy this files into the /mnt/tm
 ``` sh
 cp chroot.sh postinstall.sh /mnt/tmp
 ```
-Now here you need to run chroot.sh script that its going to create some configuration 
+Now here you need to execute xchroot to run chroot.sh script that its going to create some configuration 
 files, like: *fstab*, *rc.conf*, change the password of root, and add 1 user, and
 some others.
+
+``` sh
+xchroot /mnt
+```
+Then run the *chroot.sh* script.
 
 ``` sh
 sh /tmp/chroot.sh
