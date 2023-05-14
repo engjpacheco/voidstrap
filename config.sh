@@ -32,9 +32,7 @@ system_instalation () {
     iproute2 \
     util-linux \
     kbd \
-    wifi-firmware \
     ethtool \
-    wpa_supplicant \
     kmod \
     traceroute \
     opendoas \
