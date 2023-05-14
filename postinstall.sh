@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export GIT_SSL_NO_VERIFY=true
 while getopts ":a:r:b:p:h" o; do case "${o}" in
 	h) printf "Optional arguments for custom use:\\n  -r: Dotfiles repository (local file or url)\\n  -p: Dependencies and programs csv (local file or url)\\n  -h: Show this message\\n" && exit ;;
 	r) dotfilesrepo=${OPTARG} && git ls-remote "$dotfilesrepo" || exit ;;
@@ -44,7 +45,8 @@ gitmakeinstall() {
 	progname="$(basename "$1")"
 	dir="$repodir/$progname"
 	dialog --title "Main Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $(basename "$1") $2" 5 70
-	doas -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; doas -u "$name" git pull --force origin main;}
+	# doas -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; doas -u "$name" git pull --force origin main;}
+	doas -u "$name" git clone --depth 1 "$1" "$dir" > /home/javier/gitlog.txt || { cd "$dir" || return ; doas -u "$name" git pull --force origin main;}
 	cd "$dir" || exit
 	make >/dev/null 2>&1
 	make install >/dev/null 2>&1

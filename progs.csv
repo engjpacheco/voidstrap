@@ -2,7 +2,6 @@
 ,xorg-minimal,is the graphical server.
 ,xwininfo,allows querying information about windows.
 ,xinit,starts the graphical server.
-,xorg-fonts,is a font package.
 ,libX11-devel,is required for the compilation of some programs.
 ,libXft-devel,is required for the compilation of some programs.
 ,libXinerama-devel,is required for the compilation of some programs.
@@ -13,9 +12,6 @@
 ,xprop,is a tool for detecting window properties.
 ,xrandr,a tool for set the screen modes.
 ,dosfstools,allows your computer to access dos-like filesystems.
-,libnotify,allows desktop notifications.
-,dbus,facilitates inter-process communication.
-,dunst,is a suckless notification system.
 ,exfat-utils,allows management of FAT drives.
 ,sxiv,is a minimalist image viewer.
 ,sxhkd,shortcut daemon.
@@ -42,13 +38,11 @@
 ,zathura-pdf-mupdf,allows mupdf pdf compatibility in zathura.
 ,fzf,is a fuzzy finder tool.
 ,highlight,can highlight code output.
-,xbacklight,enables changing screen brightness levels.
 ,setxkbmap,allows unique keyboard bindings.
 ,xmodmap,allows unique keyboard bindings.
 ,xsetroot,sets status bar and other X properies.
 ,xset,allows speeding up the X rate.
 ,htop,monitors resources in the terminal.
-#,neomutt,an extensible mail client in the terminal.
 ,pass,safely encrypts passwords.la
 ,notmuch,indexes and searches mail.
 ,urlview,outputs urls in mail to browser.
