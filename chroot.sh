@@ -22,6 +22,10 @@ TIMEZONE=America/Matamoros
 # Keymap to load, see loadkeys(8).
 KEYMAP=us\n" > /etc/rc.conf
 
+printf "
+ip link set dev enp0s3
+dhcpcd -b -4 enp0s3" >> /etc/rc.local
+
 echo "generating fstab file..."
 printf "
 /dev/sda1   /boot/efi   vfat    defaults,noatime        0   2
