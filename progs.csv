@@ -22,7 +22,6 @@
 ,pipewire,is the audio system
 ,pulsemixer,is an audio controller.
 ,libva-intel-driver,video aceleration driver
-,noto-fonts-emoji,is an emoji font.
 ,alsa-utils,is an audio interface for ALSA.
 ,maim,can take quick screenshots at your request.
 ,unclutter-xfixes,hides an inactive mouse.

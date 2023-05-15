@@ -115,8 +115,6 @@ sed -i 's|https://repo-default.voidlinux.org|http://mirrors.servercentral.com/vo
 
 installpkg void-repo-nonfree
 xbps-install -Suy >/dev/null 2>&1
-installpkg base-devel 
-installpkg git
 
 # Install the dotfiles in the user's home directory
 # i do it manualy so...
@@ -136,7 +134,7 @@ chsh -s /bin/zsh $name
 # Disable ttys 3-6
 for i in $(seq 3 6)
 do
-  rm -rf /var/service/agetty-tty$i >/dev/null 2>&1
+  rm -rf /var/service/default/agetty-tty$i >/dev/null 2>&1
   touch /etc/sv/agetty-tty$i/down >/dev/null 2>&1
 done
 
@@ -160,8 +158,8 @@ do
 done
 
 # create symbolic links to x profile and z profile
-ln -sf /home/$name/.dotfiles/home/.config/x11/xprofile /home/$name/.xprofile
-ln -sf /home/$name/.dotfiles/home/.config/shell/profile /home/$name/.zprofile
+ln -sf /home/$name/.dotfiles/home/.config/x11/xprofile /home/$name/.xprofile || echo "symlink allready there".
+ln -sf /home/$name/.dotfiles/home/.config/shell/profile /home/$name/.zprofile || echo "symlink allready there".
 
 # autologin in tty1
 sed -i 's|GETTY_ARGS="--noclear"|GETTY_ARGS="--autologin javier --noclear"|g' /etc/sv/agetty-tty1/conf
