@@ -10,7 +10,7 @@ while getopts ":a:r:b:p:h" o; do case "${o}" in
 esac done
 
 [ -z "$dotfilesrepo" ] && dotfilesrepo="https://git.disroot.org/jpacheco/voidots"
-[ -z "$progsfile" ] && progsfile="https://git.disroot.org/jpacheco/voidstrap/raw/branch/master/progs.csv"
+[ -z "$progsfile" ] && progsfile="https://git.disroot.org/jpacheco/voidstrap/raw/branch/devel/progs.csv"
 [ -z "$repobranch" ] && repobranch="main"
 
 ### FUNCTIONS ###
