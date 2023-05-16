@@ -51,7 +51,7 @@ users_config () {
     echo "permit nopass root" > /etc/doas.conf
     echo "permit nopass keepenv :wheel" >> /etc/doas.conf
 
-    rm /var/service && ln -sf /etc/runit/runsvdir /var/service
+    rm /var/service && ln -sf /etc/runit/runsvdir/current /var/service
 
     # Ethernet conection:
     cp -R /etc/sv/dhcpcd-eth0 /etc/sv/dhcpcd-enp0s3
