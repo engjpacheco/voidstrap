@@ -62,8 +62,9 @@ export XBPS_ARCH=x86_64-musl && xbps-install -Suy -R http://mirrors.servercentra
 
 for dir in sys dev proc; do $(mount --rbind /$dir /mnt/$dir && mount --make-rslave /mnt/$dir); done
 cp /etc/resolv.conf /mnt/etc
-cp /etc/xbps.d/* /mnt/etc/xbps.d/
+cp /etc/xbps.d/* /mnt/etc/xbps.d/ || echo "file missing, dont worry..."
 cp postinstall.sh /root/
+cp custom.sh /root/
 
 xchroot /mnt /bin/sh <<EOF
 xbps-install -Sy grub-x86_64-efi
