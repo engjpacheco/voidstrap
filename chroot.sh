@@ -36,6 +36,7 @@ xbps-reconfigure -fa
 }
 
 users_config () {
+    LANDEVICE="$(ip addr | grep ^2: | awk '{print $2}' | cut -d : -f1)"
     echo "Change root password..."
     passwd
     chown root:root /
@@ -50,9 +51,9 @@ users_config () {
     rm /var/service && ln -sf /etc/runit/runsvdir/current /var/service
 
     # Ethernet conection:
-    cp -R /etc/sv/dhcpcd-eth0 /etc/sv/dhcpcd-enp0s3
-    sed -i 's/eth0/enp0s3/' /etc/sv/dhcpcd-enp0s3/run
-    ln -s /etc/sv/dhcpcd-enp0s3 /var/service/
+    cp -R /etc/sv/dhcpcd-eth0 /etc/sv/dhcpcd-$LANDEVICE
+    sed -i 's/eth0/enp0s3/' /etc/sv/dhcpcd-$LANDEVICE/run
+    ln -s /etc/sv/dhcpcd-$LANDEVICE /var/service/
 }
 
 system_config
