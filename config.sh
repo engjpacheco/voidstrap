@@ -65,7 +65,7 @@ system_instalation () {
     linux-firmware-intel \
     iputils
 
-    for i in sys dev proc; do $(mount --rbind /$i /mnt/$i && mount --make-rslave /mnt/$i); done
+    for dir in sys dev proc; do $(mount --rbind /$dir /mnt/$dir && mount --make-rslave /mnt/$dir); done
     cp /etc/resolv.conf /mnt/etc
     cp /etc/xbps.d/* /mnt/etc/xbps.d/
 }
@@ -73,3 +73,68 @@ system_instalation () {
 partitions || echo "Something went wrong, please check you partitions..."
 mount_partitions || echo "Something went wrong mounting, please check you partitions..."
 system_instalation && echo "Done..." || echo "Check your internet conection or the ssl verification..."
+
+chroot /mnt /bin/sh <<EOF
+xbps-install -Sy grub-x86_64-efi
+status=$?
+if [ $status -eq 16 ]; then
+    xbps-install -uy xbps && xbps-install -uy grub-x86_64-efi
+fi
+
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="void"
+
+system_config () {
+    echo void > /etc/hostname
+
+    printf "
+# /etc/rc.conf - system configuration for void-linux
+
+# Set the host name.
+# HOSTNAME="void"
+
+# Set RTC to UTC or localtime.
+HARDWARECLOCK="UTC"
+TIMEZONE=America/Matamoros
+
+# Keymap to load, see loadkeys(8).
+KEYMAP=us\n" > /etc/rc.conf
+
+    echo "generating fstab file..."
+    printf "
+/dev/sda1   /boot/efi   vfat    defaults,noatime,nodiratime        0   2
+/dev/sda3   /           ext4    defaults,noatime,nodiratime        0   1
+/dev/sda2   swap        swap    defaults                0   0
+tmpfs       /tmp        tmpfs   defaults,nosuid,nodev,nodiratime   0   0
+#tmpfs       /home/javier/.local/src/void-packages/masterdir/builddir    tmpfs   defaults,noatime,nodiratime,size=2G    0   0" > /etc/fstab
+
+    echo "Fstab file generated..."
+
+    xbps-reconfigure -fa
+}
+
+users_config () {
+    echo "Change root password..."
+    passwd
+    
+    chown root:root /
+    chmod 755 /	
+    
+    useradd -m -s /bin/mksh -U -G wheel,disk,lp,audio,video,optical,storage,scanner,network,plugdev,xbuilder javier
+    
+    echo "Change user password..."
+    passwd javier
+
+    echo "permit nopass root" > /etc/doas.conf
+    echo "permit nopass keepenv :wheel" >> /etc/doas.conf
+
+    rm /var/service && ln -sf /etc/runit/runsvdir/current /var/service
+
+    # Ethernet conection:
+    cp -R /etc/sv/dhcpcd-eth0 /etc/sv/dhcpcd-enp0s3
+    sed -i 's/eth0/enp0s3/' /etc/sv/dhcpcd-enp0s3/run
+    ln -s /etc/sv/dhcpcd-enp0s3 /var/service/
+}
+
+system_config
+users_config
+EOF
