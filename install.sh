@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cfdisk -z /dev/sda
 mkfs.vfat /dev/sda1
@@ -65,7 +65,7 @@ cp /etc/resolv.conf /mnt/etc
 cp /etc/xbps.d/* /mnt/etc/xbps.d/
 cp postinstall.sh /root/
 
-xchroot /mnt /bin/sh <<EOF
+xchroot /mnt /bin/bash <<EOF
 xbps-install -Sy grub-x86_64-efi
 status=$?
 if [ $status -eq 16 ]; then
