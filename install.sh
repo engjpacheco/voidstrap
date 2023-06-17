@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cfdisk -z /dev/sda
 mkfs.vfat /dev/sda1
@@ -66,7 +66,7 @@ cp /etc/xbps.d/* /mnt/etc/xbps.d/ || echo "file missing, dont worry..."
 cp postinstall.sh /root/
 cp custom.sh /root/
 
-xchroot /mnt /bin/sh <<EOF
+xchroot /mnt /bin/bash <<EOF
 xbps-install -Sy grub-x86_64-efi
 status=$?
 if [ $status -eq 16 ]; then
@@ -104,7 +104,6 @@ xbps-reconfigure -fa
 
 chown root:root /
 chmod 755 /	
-
 
 echo "permit nopass root" > /etc/doas.conf
 echo "permit nopass keepenv :wheel" >> /etc/doas.conf
