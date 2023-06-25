@@ -1,14 +1,12 @@
 #!/bin/bash
 
-cfdisk -z /dev/sda
-mkfs.vfat /dev/sda1
-mkfs.ext4 /dev/sda3
-mkswap /dev/sda2
+mkfs.ext4 /dev/nvme0n1p5
+mkswap /dev/nvme0n1p4
 
-mount /dev/sda3 /mnt
+mount /dev/nvme0n1p5 /mnt
 mkdir -p /mnt/boot/efi
-mount /dev/sda1 /mnt/boot/efi
-swapon /dev/sda2
+mount /dev/nvme0n1p1 /mnt/boot/efi
+swapon /dev/nvme0n1p4
 
 export XBPS_ARCH=x86_64 && xbps-install -Suy -R http://mirrors.servercentral.com/voidlinux/current -r /mnt \
     xbps \
@@ -57,7 +55,7 @@ export XBPS_ARCH=x86_64 && xbps-install -Suy -R http://mirrors.servercentral.com
     zathura-pdf-poppler \
     linux6.2 \
     dracut \
-    linux-firmware-intel \
+    linux-firmware-amd \
     iputils
 
 for dir in sys dev proc; do $(mount --rbind /$dir /mnt/$dir && mount --make-rslave /mnt/$dir); done
@@ -91,9 +89,9 @@ KEYMAP=us\n" > /etc/rc.conf
 
 echo "generating fstab file..."
 printf "
-/dev/sda1   /boot/efi   vfat    defaults,noatime,nodiratime        0   2
-/dev/sda3   /           ext4    defaults,noatime,nodiratime        0   1
-/dev/sda2   swap        swap    defaults                0   0
+/dev/nvme0n1p1   /boot/efi   vfat    defaults,noatime,nodiratime        0   2
+/dev/nvme0n1p5   /           ext4    defaults,noatime,nodiratime        0   1
+/dev/nvme0n1p4   swap        swap    defaults                0   0
 tmpfs       /tmp        tmpfs   defaults,nosuid,nodev,nodiratime   0   0
 #tmpfs       /home/javier/.local/src/void-packages/masterdir/builddir    tmpfs   defaults,noatime,nodiratime,size=2G    0   0" > /etc/fstab
 
