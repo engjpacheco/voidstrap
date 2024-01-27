@@ -55,7 +55,7 @@ export XBPS_ARCH=x86_64-musl && xbps-install -Suy -R http://mirrors.servercentra
     xtools \
     xz \
     zathura-pdf-poppler \
-    linux6.2 \
+    linux5.10 \
     dracut \
     linux-firmware-intel \
     iputils
