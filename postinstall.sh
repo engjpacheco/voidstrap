@@ -15,4 +15,6 @@ cp -R /etc/sv/dhcpcd-eth0 /etc/sv/dhcpcd-$ETHCARD
 sed -i 's/eth0/$ETHCARD/' /etc/sv/dhcpcd-$ETHCARD/run
 ln -s /etc/sv/dhcpcd-$ETHCARD /var/service/
 
+ln -s /etc/sv/dbus /var/service
+ln -s /etc/sv/polkitd /var/service
 
