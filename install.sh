@@ -37,7 +37,6 @@ export XBPS_ARCH=x86_64-musl && xbps-install -Suy -R http://mirrors.servercentra
 											 ffmpeg \
 											 file \
 											 gcc \
-											 mesa-vaapi \
 											 zsh \
 											 mpv \
 											 fzf \
@@ -50,6 +49,7 @@ export XBPS_ARCH=x86_64-musl && xbps-install -Suy -R http://mirrors.servercentra
 											 linux5.10 \
 											 dracut \
 											 linux-firmware-amd \
+	    										 linux-firmware-network
 											 iputils \
 											 dbus-elogind \
 											 polkit \
@@ -62,7 +62,7 @@ export XBPS_ARCH=x86_64-musl && xbps-install -Suy -R http://mirrors.servercentra
 for dir in sys dev proc; do $(mount --rbind /$dir /mnt/$dir && mount --make-rslave /mnt/$dir); done
 cp /etc/resolv.conf /mnt/etc
 cp /etc/xbps.d/* /mnt/etc/xbps.d/
-cp postinstall.sh /root/
+cp postinstall.sh /mnt/root/
 
 xchroot /mnt /bin/bash <<EOF
 xbps-install -Sy grub-x86_64-efi
@@ -72,6 +72,8 @@ if [ $status -eq 16 ]; then
 fi
 
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="void"
+echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
+update-grub
 
 echo void > /etc/hostname
 
