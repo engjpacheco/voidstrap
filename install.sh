@@ -8,7 +8,7 @@ mkdir -p /mnt/boot/efi
 mount /dev/nvme0n1p1 /mnt/boot/efi
 swapon /dev/nvme0n1p4
 
-export XBPS_ARCH=x86_64-musl && xbps-install -Suy -R http://mirrors.servercentral.com/voidlinux/current/musl -r /mnt \
+export XBPS_ARCH=x86_64 && xbps-install -Suy -R http://mirrors.servercentral.com/voidlinux/current -r /mnt \
 											 xbps \
 											 base-minimal \
 											 vim \
@@ -41,7 +41,6 @@ export XBPS_ARCH=x86_64-musl && xbps-install -Suy -R http://mirrors.servercentra
 											 mpv \
 											 fzf \
 											 openssh \
-											 setxkbmap \
 											 unzip \
 											 xfsprogs \
 											 xz \
@@ -49,7 +48,7 @@ export XBPS_ARCH=x86_64-musl && xbps-install -Suy -R http://mirrors.servercentra
 											 linux5.10 \
 											 dracut \
 											 linux-firmware-amd \
-	    										 linux-firmware-network
+	    							linux-firmware-network
 											 iputils \
 											 dbus-elogind \
 											 polkit \
