@@ -47,8 +47,8 @@ export XBPS_ARCH=x86_64 && xbps-install -Suy -R http://mirrors.servercentral.com
 											 zathura-pdf-poppler \
 											 linux5.10 \
 											 dracut \
-											 linux-firmware-amd \
-	    							linux-firmware-network
+											 linux-firmware \
+	    							linux-firmware-network \
 											 iputils \
 											 dbus-elogind \
 											 polkit \
